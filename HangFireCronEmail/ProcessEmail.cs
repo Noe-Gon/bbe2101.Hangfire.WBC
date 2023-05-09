@@ -4,6 +4,7 @@ using HangFireCronEmail.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -23,6 +24,49 @@ namespace HangFireCronEmail
             {
                 Hangfire_wbc EH_Requeriments = new Hangfire_wbc();
                 var hangfireAttributes = EH_Requeriments.Hangfire_Requeriments.Select(x => x).ToList();
+
+                EmBeAlgoritmosAPEntities EmBeAlgortimosDB = new EmBeAlgoritmosAPEntities();
+                //4 is for a Admin role
+                var users = EmBeAlgortimosDB.Usuarios.Join(EmBeAlgortimosDB.CedisUsuarios, 
+                    u => u.IdUsuario,
+                    cu => cu.IdUsuario,
+                    (u, cu) => new
+                    {
+                        UserId = cu.IdUsuario,
+                        Email = u.Email,
+                        Cedis = cu.ListaCedis
+                    }).ToList().Select(x => new
+                    {
+                        UserId = x.UserId,
+                        Email = x.Email,
+                        Cedis = x.Cedis.Split(',').ToList()
+                    }).ToList();
+
+                var cedisToRemoveDuplicated = new List<string>();
+                foreach(var user in users) {
+                    foreach (var cedis in user.Cedis)
+                    {
+                        cedisToRemoveDuplicated.Add(cedis);
+                    }
+                }
+
+                cedisToRemoveDuplicated = cedisToRemoveDuplicated.Distinct().ToList();
+                var groupedUsers = new List<GroupUserByCedis>();
+
+                foreach (var cedis in cedisToRemoveDuplicated)
+                {
+                    var userByCedis = users.FindAll(x => x.Cedis.Contains(cedis)).Select(x => new UserEmailDTO
+                    {
+                        UserId = x.UserId,
+                        Email = x.Email
+                    }).ToList();
+                    groupedUsers.Add(new GroupUserByCedis
+                    {
+                        Cedis = Int32.Parse(cedis),
+                        Users = userByCedis
+                    });
+                }
+
                 int numDay = ((int)DateTime.Now.DayOfWeek == 0) ? 7 : (int)DateTime.Now.DayOfWeek;
                 EmailDays days = new EmailDays
                 {
@@ -108,5 +152,17 @@ namespace HangFireCronEmail
                 throw;
             }
         }
+    }
+
+    public class GroupUserByCedis
+    {
+        public int Cedis { get; set; }
+        public List<UserEmailDTO> Users { get; set; }
+    }
+
+    public class UserEmailDTO
+    {
+        public int UserId { get; set; }
+        public string Email { get; set; }
     }
 }

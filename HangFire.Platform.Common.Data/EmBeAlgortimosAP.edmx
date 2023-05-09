@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EmBeAlgoritmosAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EmBeAlgoritmosAP.cat.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Uuid" />
+            <PropertyRef Name="Nombres" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="FechaAlta" />
+            <PropertyRef Name="FechaModificacion" />
+            <PropertyRef Name="Cedis" />
+            <PropertyRef Name="Contrasena" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uuid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombres" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Estatus" Type="bit" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime2" Precision="7" />
+          <Property Name="IdRole" Type="int" />
+          <Property Name="IdCedis" Type="int" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="Token" Type="nvarchar" MaxLength="150" />
+          <Property Name="Vencimiento" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cedis" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CedisUsuarios">
+          <Key>
+            <PropertyRef Name="IdCedisUsuario" />
+          </Key>
+          <Property Name="IdCedisUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListaCedis" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaAlta" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Todos" Type="bit" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'FK_CEDIS_USUARIOS_IDUSUARIO' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="FK_CEDIS_USUARIOS_IDUSUARIO" />-->
+        <EntityContainer Name="EmBeAlgoritmosAPModelStoreContainer">
+          <EntitySet Name="CedisUsuarios" EntityType="Self.CedisUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="cat">
+            <DefiningQuery>SELECT 
+    [Usuarios].[IdUsuario] AS [IdUsuario], 
+    [Usuarios].[Uuid] AS [Uuid], 
+    [Usuarios].[Nombres] AS [Nombres], 
+    [Usuarios].[Estatus] AS [Estatus], 
+    [Usuarios].[FechaAlta] AS [FechaAlta], 
+    [Usuarios].[FechaModificacion] AS [FechaModificacion], 
+    [Usuarios].[FechaBaja] AS [FechaBaja], 
+    [Usuarios].[IdRole] AS [IdRole], 
+    [Usuarios].[IdCedis] AS [IdCedis], 
+    [Usuarios].[Usuario] AS [Usuario], 
+    [Usuarios].[Token] AS [Token], 
+    [Usuarios].[Vencimiento] AS [Vencimiento], 
+    [Usuarios].[Cedis] AS [Cedis], 
+    [Usuarios].[Contrasena] AS [Contrasena], 
+    [Usuarios].[Email] AS [Email]
+    FROM [cat].[Usuarios] AS [Usuarios]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmBeAlgoritmosAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CedisUsuarios">
+          <Key>
+            <PropertyRef Name="IdCedisUsuario" />
+          </Key>
+          <Property Name="IdCedisUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListaCedis" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Todos" Type="Boolean" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Uuid" />
+            <PropertyRef Name="Nombres" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="FechaAlta" />
+            <PropertyRef Name="FechaModificacion" />
+            <PropertyRef Name="Cedis" />
+            <PropertyRef Name="Contrasena" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uuid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Estatus" Type="Boolean" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="7" />
+          <Property Name="IdRole" Type="Int32" />
+          <Property Name="IdCedis" Type="Int32" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Token" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Vencimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cedis" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="EmBeAlgoritmosAPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CedisUsuarios" EntityType="Self.CedisUsuarios" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmBeAlgoritmosAPModelStoreContainer" CdmEntityContainer="EmBeAlgoritmosAPEntities">
+          <EntitySetMapping Name="CedisUsuarios">
+            <EntityTypeMapping TypeName="EmBeAlgoritmosAPModel.CedisUsuarios">
+              <MappingFragment StoreEntitySet="CedisUsuarios">
+                <ScalarProperty Name="IdCedisUsuario" ColumnName="IdCedisUsuario" />
+                <ScalarProperty Name="ListaCedis" ColumnName="ListaCedis" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Todos" ColumnName="Todos" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="EmBeAlgoritmosAPModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Uuid" ColumnName="Uuid" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="IdCedis" ColumnName="IdCedis" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Vencimiento" ColumnName="Vencimiento" />
+                <ScalarProperty Name="Cedis" ColumnName="Cedis" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

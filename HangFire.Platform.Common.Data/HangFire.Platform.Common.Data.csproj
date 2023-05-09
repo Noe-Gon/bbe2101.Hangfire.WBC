@@ -54,6 +54,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CedisUsuarios.cs">
+      <DependentUpon>EmBeAlgortimosAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmBeAlgortimosAP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmBeAlgortimosAP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmBeAlgortimosAP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmBeAlgortimosAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmBeAlgortimosAP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmBeAlgortimosAP.edmx</DependentUpon>
+    </Compile>
     <Compile Include="HangfireWBC.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +91,9 @@
       <DependentUpon>HangfireWBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuarios.cs">
+      <DependentUpon>EmBeAlgortimosAP.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -82,6 +103,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HangfireWBC.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="EmBeAlgortimosAP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EmBeAlgortimosAP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EmBeAlgortimosAP.edmx.diagram">
+      <DependentUpon>EmBeAlgortimosAP.edmx</DependentUpon>
+    </None>
     <None Include="HangfireWBC.edmx.diagram">
       <DependentUpon>HangfireWBC.edmx</DependentUpon>
     </None>
@@ -91,6 +119,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmBeAlgortimosAP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EmBeAlgortimosAP.edmx</DependentUpon>
+      <LastGenOutput>EmBeAlgortimosAP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EmBeAlgortimosAP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EmBeAlgortimosAP.edmx</DependentUpon>
+      <LastGenOutput>EmBeAlgortimosAP.cs</LastGenOutput>
+    </Content>
     <Content Include="HangfireWBC.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HangfireWBC.edmx</DependentUpon>
